@@ -59,3 +59,20 @@ like TL = M:upcast_(wxTopLevelWindow).
 
 You can also pass it as parameters to methods.
 You can also pass normal (not parametrized) objects to this methods.
+
+
+
+Compilation:
+
+You need to have wx application already insalled.
+
+   $ erl
+   > c(wxp_gen).
+   {ok, wxp_gen}
+   > wxp_gen:gen([verbose, compile]).
+   ....
+   LOTS OF OUTPUT
+   ....
+   ok
+
+Generated files will be in ./gen/ directory. beam files will be placed in current directory.
