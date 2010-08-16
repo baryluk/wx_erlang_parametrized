@@ -50,7 +50,12 @@ Now you can just write:
 	Frame:show().
 
 All objects returned by this wrapper can be used as parametrized modules.
-If you want to unwrap objects, just call M:unwrap_().
+
+If you want to unwrap objects, just call W = M:unwrap_(),
+then you can use W as normal object to standard wx functions.
+
+If you want to upcast object to parent class, just call M:upcast_(ParentModule),
+like TL = M:upcast_(wxTopLevelWindow).
 
 You can also pass it as parameters to methods.
 You can also pass normal (not parametrized) objects to this methods.
