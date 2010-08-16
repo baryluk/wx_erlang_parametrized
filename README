@@ -1,0 +1,56 @@
+Parametrized wrappers for wxErlang.
+
+This module just adds some wraping around wx objects,
+so one can use parametrized modules.
+
+Normally you will writing something like this:
+
+	Frame = wxFrame:new(wx:null(), ?wxID_ANY, "Hello", [{size, {800, 500}}]),
+
+	Icons = wxIconBundle:new(),
+	Icon1 = wxIcon:new("icon1.png"),
+	wxIconBundle:addIcon(Icons, Icon1),
+	wxFrame:setIcons(Frame, Icons),
+
+	wxFrame:centreOnScreen(Frame),
+
+	MB = wxMenuBar:new(),
+	Sub = wxMenu:new(),
+	wxMenu:append(Sub, 10001, "Update", [{help, "Update all entries now"}]),
+	wxMenu:appendSeparator(Sub),
+	wxMenu:append(Sub, ?wxID_EXIT, "&QUIT"),
+	
+	wxMenuBar:append(MB, Sub, "&File"),
+	wxFrame:setMenuBar(Frame, MB),
+
+	wxFrame:connect(Frame, command_menu_selected),
+	wxFrame:show(Frame).
+
+Now you can just write:
+
+	Frame = wxp:new(frame, wx:null(), ?wxID_ANY, "Hello", [{size, {800, 500}}]),
+
+	Icons = wxp:new(iconbundle),
+	Icon1 = wxp:new(icon, "icon1.png"),
+	Icons:addIcon(Icon1),
+	Frame:setIcons(Icons),
+
+	Frame:centerOnScreen(),
+
+	MB = wxp:new(menubar),
+	Sub = wxp:new(menu),
+	Sub:append(10001, "Update", [{help, "Update all entries now"}]),
+	Sub:appendSeparator(),
+	Sub:append(?wxID_EXIT, "&QUIT"),
+
+	MB:append(Sub, "&File"),
+	Frame:setMenuBar(MB),
+
+	Frame:connect(command_menu_selected),
+	Frame:show().
+
+All objects returned by this wrapper can be used as parametrized modules.
+If you want to unwrap objects, just call M:unwrap_().
+
+You can also pass it as parameters to methods.
+You can also pass normal (not parametrized) objects to this methods.
